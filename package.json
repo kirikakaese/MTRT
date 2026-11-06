@@ -1,0 +1,25 @@
+{
+  "name": "mtrt",
+  "version": "1.0.0",
+  "description": "Managed tab reloader: precise, staggered, clock-synced reloads of a ticket shop in a Playwright-controlled browser, with alerts.",
+  "type": "module",
+  "bin": {
+    "mtrt": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "round1": "node src/cli.js --preset round-1",
+    "test-mode": "node src/cli.js --preset test --fake",
+    "fake": "node fake/server.js",
+    "timing-test": "node scripts/timing-test.js",
+    "clock": "node src/cli.js --clock-only",
+    "postinstall": "playwright install chromium"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0"
+  },
+  "license": "MIT"
+}

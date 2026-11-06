@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MTRT Control</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="banner" class="banner hidden">
+  <div id="bannerTitle">SHOP OPEN</div>
+  <div id="bannerMsg"></div>
+  <button id="ackBtn">Acknowledge</button>
+</div>
+
+<header>
+  <h1>MTRT <span class="sub">managed tab reloader</span></h1>
+  <div id="stateBadge" class="badge">idle</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="countdown-wrap">
+      <div class="label">Opens in (server time)</div>
+      <div id="countdown" class="countdown">--:--:--.-</div>
+      <div id="targetLine" class="muted"></div>
+      <div id="phaseLine" class="phase"></div>
+    </div>
+    <div class="clock">
+      <div class="label">Server-corrected clock</div>
+      <div id="serverClock" class="serverclock">--:--:--.---</div>
+      <div id="offsetLine" class="muted">offset: –</div>
+      <div id="ntpLine" class="muted"></div>
+      <button id="syncBtn" class="small">Re-sync clock</button>
+    </div>
+    <div class="controls">
+      <button id="armBtn" class="big arm">ARM</button>
+      <button id="stopBtn" class="big stop">STOP</button>
+      <button id="panicBtn" class="big panic">PANIC STOP</button>
+      <div class="row">
+        <button id="prepareBtn" class="small">Open browser &amp; load tabs once</button>
+        <button id="testAlertBtn" class="small">Test alerts</button>
+      </div>
+      <div id="reason" class="muted"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tabs</h2>
+    <table id="tabs">
+      <thead><tr><th>#</th><th>Offset</th><th>Status</th><th>Last reload</th><th>HTTP</th><th>Load</th><th>Timing err</th><th>Next</th><th>Reloads / errors</th><th>Page</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="cols">
+    <div>
+      <h2>Configuration</h2>
+      <div class="presets">
+        <select id="presetSel"></select>
+        <button id="loadPresetBtn" class="small">Load</button>
+        <input id="presetName" placeholder="preset name">
+        <button id="savePresetBtn" class="small">Save as preset</button>
+      </div>
+      <form id="cfgForm" class="cfg">
+        <label class="wide">Shop URL <input name="url"></label>
+        <label class="wide">Target time (ISO, with offset) <input name="targetTime"></label>
+        <label>Tabs <input name="tabs" type="number" min="1" max="12"></label>
+        <label>Stagger offset (ms) <input name="offsetMs" type="number"></label>
+        <label class="wide">Per-tab offsets (ms, comma-separated, optional) <input name="tabOffsets" placeholder="e.g. 0,150,400,900"></label>
+        <label>Ramp starts before T (ms) <input name="rampLeadMs" type="number"></label>
+        <label>Fast window after T (ms) <input name="rampAfterMs" type="number"></label>
+        <label>Fast interval per tab (ms) <input name="fastIntervalMs" type="number"></label>
+        <label>Slow interval per tab (ms) <input name="slowIntervalMs" type="number"></label>
+        <label>Slow phase duration (ms) <input name="slowDurationMs" type="number"></label>
+        <label>Idle interval (ms, 0 = off) <input name="idleIntervalMs" type="number"></label>
+        <label>Warm-up reload before T (ms) <input name="warmupLeadMs" type="number"></label>
+        <label>Arrival bias (ms) <input name="arrivalBiasMs" type="number"></label>
+        <label class="check"><input name="latencyCompensation" type="checkbox"> Compensate network latency</label>
+        <label class="check"><input name="keepAwake" type="checkbox"> Keep Mac awake while armed</label>
+        <h3 class="wide">Detection</h3>
+        <label class="wide">"Open" CSS selector <input name="detection.openSelector"></label>
+        <label class="wide">"Open" text (substring or /regex/i) <input name="detection.openText"></label>
+        <label class="wide">"Open" URL pattern <input name="detection.openUrl"></label>
+        <label class="wide">Queue text <input name="detection.queueText"></label>
+        <label class="wide">Queue URL pattern <input name="detection.queueUrl"></label>
+        <label class="wide">"Not open yet" text <input name="detection.closedText"></label>
+        <label class="check wide"><input name="detection.stopOnUnknownChange" type="checkbox"> Stop &amp; alert when the page changes to something unknown during the fast phase</label>
+        <h3 class="wide">Alerts</h3>
+        <label>ntfy server <input name="alerts.ntfyServer"></label>
+        <label>ntfy topic (private!) <input name="alerts.ntfyTopic"></label>
+        <label class="check"><input name="alerts.sound" type="checkbox"> Sound</label>
+        <label class="check"><input name="alerts.say" type="checkbox"> Speak</label>
+        <label class="check"><input name="alerts.notification" type="checkbox"> macOS notification</label>
+        <div class="wide row"><button type="button" id="applyBtn" class="small">Apply (without arming)</button><span id="cfgMsg" class="muted"></span></div>
+      </form>
+    </div>
+    <div>
+      <h2>Reload log <a href="/api/log.csv">CSV</a> · <a href="/api/log.json">JSON</a></h2>
+      <div id="stats" class="muted"></div>
+      <div class="logwrap"><table id="log"><thead><tr><th>Time</th><th>Tab</th><th>Phase</th><th>Result</th><th>HTTP</th><th>Err</th><th>Load</th><th>Info</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

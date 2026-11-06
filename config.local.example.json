@@ -1,0 +1,6 @@
+{
+  "alerts": {
+    "ntfyTopic": "mtrt-CHANGE-ME-to-something-long-and-random",
+    "forceVolume": null
+  }
+}

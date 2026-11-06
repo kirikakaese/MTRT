@@ -1,0 +1,8 @@
+{
+  "name": "Test (fake sale page)",
+  "url": "http://127.0.0.1:4741/40c3/",
+  "slowDurationMs": 120000,
+  "testHeaders": true,
+  "clock": { "ntpServer": "" },
+  "alerts": { "say": false, "soundRepeat": 2 }
+}
