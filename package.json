@@ -9,6 +9,8 @@
   "scripts": {
     "start": "node src/cli.js",
     "round1": "node src/cli.js --preset round-1",
+    "round2": "node src/cli.js --preset round-2",
+    "round3": "node src/cli.js --preset round-3",
     "test-mode": "node src/cli.js --preset test --fake",
     "fake": "node fake/server.js",
     "timing-test": "node scripts/timing-test.js",
